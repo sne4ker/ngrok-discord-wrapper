@@ -50,7 +50,7 @@ func init() {
 		configureDiscordWebhook()
 		os.Exit(0)
 	}
-	if ! strings.Contains(string(contentBytes), "https://discordapp.com/api/webhooks") {
+	if ! strings.Contains(string(contentBytes), "https://discordapp.com/api/webhooks") && ! strings.Contains(string(contentBytes), "https://discord.com/api/webhooks") {
 		configureDiscordWebhook()
 		os.Exit(0)
 	}
@@ -257,7 +257,7 @@ func createConfig() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Saved config to %v using authtoken %v, version %v and web interface port %v\n", configFilePTR, authtoken, version, web_addr)
+	fmt.Printf("Saved config to %v using authtoken %v, version %v and web interface port %v\n", *configFilePTR, authtoken, version, web_addr)
 }
 
 func checkconfigFilePTR() (exists bool) {
