@@ -5,7 +5,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
+	"log"
 	"net/http"
 	"os"
 	"os/exec"
@@ -63,7 +64,10 @@ func configureDiscordWebhook() {
 	
 	fmt.Printf("Please input discord webhook url: ")
 	scanner.Scan()
-	os.WriteFile(*wrapperConfigPTR, []byte(scanner.Text()), 0644)
+	err := os.WriteFile(*wrapperConfigPTR, []byte(scanner.Text()), 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func main() {
@@ -204,7 +208,7 @@ func getNgrokAddress() {
 
 	defer res.Body.Close()
 
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		panic(err)
 	}
